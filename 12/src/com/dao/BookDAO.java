@@ -6,7 +6,7 @@ import com.actionForm.BookForm;
 
 public class BookDAO {
     private ConnDB conn=new ConnDB();
-//²éÑ¯Êı¾İ
+//æŸ¥è¯¢æ•°æ®
 public Collection query(String strif){
 BookForm bookForm=null;
 Collection bookColl=new ArrayList();
@@ -16,7 +16,7 @@ if(strif!="all" && strif!=null && strif!=""){
 }else{
     sql="select b.*,c.name as bookcaseName,p.pubname as publishing,t.typename from tb_bookinfo b left join tb_bookcase c on b.bookcase=c.id join tb_publishing p on b.ISBN=p.ISBN join tb_booktype t on b.typeid=t.id where b.del=0";
 }
-System.out.println("Í¼Êé²éÑ¯Ê±µÄSQL£º"+sql);
+System.out.println("å›¾ä¹¦æŸ¥è¯¢æ—¶çš„SQLï¼š"+sql);
 ResultSet rs=conn.executeQuery(sql);
 try {
     while (rs.next()) {
@@ -27,7 +27,7 @@ try {
         bookForm.setAuthor(rs.getString(4));
         bookForm.setTranslator(rs.getString(5));
         bookForm.setIsbn(rs.getString(6));
-        bookForm.setPrice(Float.valueOf(rs.getString(7)));  //´Ë´¦±ØĞë½øĞĞÀàĞÍ×ª»»
+        bookForm.setPrice(Float.valueOf(rs.getString(7)));  //æ­¤å¤„å¿…é¡»è¿›è¡Œç±»å‹è½¬æ¢
         bookForm.setPage(rs.getInt(8));
         bookForm.setBookcaseid(rs.getInt(9));
         bookForm.setInTime(rs.getString(10));
@@ -45,11 +45,11 @@ try {
 conn.close();
 return bookColl;
 }
-//ÓÃÓÚĞŞ¸ÄµÄ²éÑ¯
+//ç”¨äºä¿®æ”¹çš„æŸ¥è¯¢
 public BookForm queryM(BookForm bookForm1){
 BookForm bookForm=null;
 String sql="select b.*,c.name as bookcaseName,p.pubname as publishing,t.typename from tb_bookinfo b left join tb_bookcase c on b.bookcase=c.id join tb_publishing p on b.ISBN=p.ISBN join tb_booktype t on b.typeid=t.id where b.id="+bookForm1.getId()+"";
-System.out.println("ĞŞ¸ÄÊ±µÄSQL£º"+sql);
+System.out.println("ä¿®æ”¹æ—¶çš„SQLï¼š"+sql);
 ResultSet rs=conn.executeQuery(sql);
 try {
     while (rs.next()) {
@@ -60,7 +60,7 @@ try {
         bookForm.setAuthor(rs.getString(4));
         bookForm.setTranslator(rs.getString(5));
         bookForm.setIsbn(rs.getString(6));
-        bookForm.setPrice(Float.valueOf(rs.getString(7)));  //´Ë´¦±ØĞë½øĞĞÀàĞÍ×ª»»
+        bookForm.setPrice(Float.valueOf(rs.getString(7)));  //æ­¤å¤„å¿…é¡»è¿›è¡Œç±»å‹è½¬æ¢
         bookForm.setPage(rs.getInt(8));
         bookForm.setBookcaseid(rs.getInt(9));     
         bookForm.setInTime(rs.getString(10));
@@ -76,11 +76,11 @@ try {
 conn.close();
 return bookForm;
 }
-    //ÓÃÓÚ½èÔÄµÄ²éÑ¯
+    //ç”¨äºå€Ÿé˜…çš„æŸ¥è¯¢
    public BookForm queryB(String f,String key){
    BookForm bookForm=null;
    String sql="select b.*,c.name as bookcaseName,p.pubname as publishing,t.typename from tb_bookinfo b left join tb_bookcase c on b.bookcase=c.id join tb_publishing p on b.ISBN=p.ISBN join tb_booktype t on b.typeid=t.id where b."+f+"='"+key+"'";
-   System.out.println("²éÑ¯½èÔÄĞÅÏ¢Ê±µÄSQL£º"+sql);
+   System.out.println("æŸ¥è¯¢å€Ÿé˜…ä¿¡æ¯æ—¶çš„SQLï¼š"+sql);
    ResultSet rs=conn.executeQuery(sql);
    try {
        if (rs.next()) {
@@ -91,7 +91,7 @@ return bookForm;
            bookForm.setAuthor(rs.getString(4));
            bookForm.setTranslator(rs.getString(5));
            bookForm.setIsbn(rs.getString(6));
-           bookForm.setPrice(Float.valueOf(rs.getString(7)));  //´Ë´¦±ØĞë½øĞĞÀàĞÍ×ª»»
+           bookForm.setPrice(Float.valueOf(rs.getString(7)));  //æ­¤å¤„å¿…é¡»è¿›è¡Œç±»å‹è½¬æ¢
            bookForm.setPage(rs.getInt(8));
            bookForm.setBookcaseid(rs.getInt(9));     
            bookForm.setInTime(rs.getString(10));
@@ -108,7 +108,7 @@ return bookForm;
    return bookForm;
    }
 
-//Ìí¼ÓÊı¾İ
+//æ·»åŠ æ•°æ®
 public int insert(BookForm bookForm){
 String sql1="SELECT * FROM tb_bookinfo WHERE barcode='"+bookForm.getBarcode()+"' or bookname='"+bookForm.getBookName()+"'";
 ResultSet rs = conn.executeQuery(sql1);
@@ -120,7 +120,7 @@ if (rs.next()) {
 } else {
     sql ="Insert into tb_bookinfo (barcode,bookname,typeid,author,translator,isbn,price,page,bookcase,inTime,operator) values('"+bookForm.getBarcode()+"','"+bookForm.getBookName()+"',"+bookForm.getTypeId()+",'"+bookForm.getAuthor()+"','"+bookForm.getTranslator()+"','"+bookForm.getIsbn()+"',"+bookForm.getPrice()+","+bookForm.getPage()+","+bookForm.getBookcaseid()+",'"+bookForm.getInTime()+"','"+bookForm.getOperator()+"')";
     falg = conn.executeUpdate(sql);
-    System.out.println("Ìí¼ÓÍ¼ÊéµÄSQL£º" + sql);
+    System.out.println("æ·»åŠ å›¾ä¹¦çš„SQLï¼š" + sql);
     conn.close();
 }
 } catch (SQLException ex) {
@@ -130,19 +130,19 @@ System.out.println("falg:"+falg);
 return falg;
 }
 
-//ĞŞ¸ÄÊı¾İ
+//ä¿®æ”¹æ•°æ®
 public int update(BookForm bookForm){
 String sql="Update tb_bookinfo set typeid="+bookForm.getTypeId()+",author='"+bookForm.getAuthor()+"',translator='"+bookForm.getTranslator()+"',isbn='"+bookForm.getIsbn()+"',price="+bookForm.getPrice()+",page="+bookForm.getPage()+",bookcase="+bookForm.getBookcaseid()+" where id="+bookForm.getId()+"";
 int falg=conn.executeUpdate(sql);
-System.out.println("ĞŞ¸ÄÊı¾İÊ±µÄSQL£º"+sql);
+System.out.println("ä¿®æ”¹æ•°æ®æ—¶çš„SQLï¼š"+sql);
 conn.close();
 return falg;
 }
-//É¾³ıÊı¾İ
+//åˆ é™¤æ•°æ®
 public int delete(BookForm bookForm){
 String sql="UPDATE tb_bookinfo SET del=1 where id="+bookForm.getId()+"";
 int falg=conn.executeUpdate(sql);
-System.out.println("É¾³ıÊ±µÄSQL£º"+sql);
+System.out.println("åˆ é™¤æ—¶çš„SQLï¼š"+sql);
 return falg;
 }
 

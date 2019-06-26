@@ -8,7 +8,7 @@ public class ConnDB {
 	  public Connection conn = null;
 	  public Statement stmt = null;
 	  public ResultSet rs = null;
-	  private static String propFileName = "/com/connDB.properties";	//Ö¸¶¨×ÊÔ´ÎÄ¼ş±£´æµÄÎ»ÖÃ
+	  private static String propFileName = "/com/connDB.properties";	//æŒ‡å®šèµ„æºæ–‡ä»¶ä¿å­˜çš„ä½ç½®
 	  private static Properties prop = new Properties();
 	  private static String dbClassName ="com.mysql.jdbc.Driver";
 	  private static String dbUrl =
@@ -16,12 +16,12 @@ public class ConnDB {
 	  public ConnDB(){
 	    try {
 	      InputStream in=getClass().getResourceAsStream(propFileName);
-	      prop.load(in);									//Í¨¹ıÊäÈëÁ÷¶ÔÏó¼ÓÔØPropertiesÎÄ¼ş
-	      dbClassName = prop.getProperty("DB_CLASS_NAME");	//»ñÈ¡Êı¾İ¿âÇı¶¯
+	      prop.load(in);									//é€šè¿‡è¾“å…¥æµå¯¹è±¡åŠ è½½Propertiesæ–‡ä»¶
+	      dbClassName = prop.getProperty("DB_CLASS_NAME");	//è·å–æ•°æ®åº“é©±åŠ¨
 	      dbUrl = prop.getProperty("DB_URL",dbUrl);
 	    }
 	    catch (Exception e) {
-	      e.printStackTrace();		//Êä³öÒì³£ĞÅÏ¢
+	      e.printStackTrace();		//è¾“å‡ºå¼‚å¸¸ä¿¡æ¯
 	    }
 	  }
 
@@ -36,14 +36,14 @@ public class ConnDB {
 	    }
 	    if (conn == null) {
 	      System.err.println(
-	          "¾¯¸æ: DbConnectionManager.getConnection() »ñµÃÊı¾İ¿âÁ´½ÓÊ§°Ü.\r\n\r\nÁ´½ÓÀàĞÍ:" +
-	          dbClassName + "\r\nÁ´½ÓÎ»ÖÃ:" + dbUrl);
+	          "è­¦å‘Š: DbConnectionManager.getConnection() è·å¾—æ•°æ®åº“é“¾æ¥å¤±è´¥.\r\n\r\né“¾æ¥ç±»å‹:" +
+	          dbClassName + "\r\né“¾æ¥ä½ç½®:" + dbUrl);
 	    }
 	    return conn;
 	  }
 
 	/*
-	 * ¹¦ÄÜ£ºÖ´ĞĞ²éÑ¯Óï¾ä
+	 * åŠŸèƒ½ï¼šæ‰§è¡ŒæŸ¥è¯¢è¯­å¥
 	 */
 	public ResultSet executeQuery(String sql) {
 		try {
@@ -58,15 +58,15 @@ public class ConnDB {
 	}
 
 	/*
-	 * ¹¦ÄÜ:Ö´ĞĞ¸üĞÂ²Ù×÷
+	 * åŠŸèƒ½:æ‰§è¡Œæ›´æ–°æ“ä½œ
 	 */
 	public int executeUpdate(String sql) {
 		int result = 0;
 		try {
-			conn = getConnection();					//µ÷ÓÃgetConnection()·½·¨¹¹ÔìConnection¶ÔÏóµÄÒ»¸öÊµÀıconn
+			conn = getConnection();					//è°ƒç”¨getConnection()æ–¹æ³•æ„é€ Connectionå¯¹è±¡çš„ä¸€ä¸ªå®ä¾‹conn
 			stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
 					ResultSet.CONCUR_READ_ONLY);
-			result = stmt.executeUpdate(sql);		//Ö´ĞĞ¸üĞÂ²Ù×÷
+			result = stmt.executeUpdate(sql);		//æ‰§è¡Œæ›´æ–°æ“ä½œ
 		} catch (SQLException ex) {
 			result = 0;
 		}
@@ -74,7 +74,7 @@ public class ConnDB {
 	}
 
 	/*
-	 * ¹¦ÄÜ:¹Ø±ÕÊı¾İ¿âµÄÁ¬½Ó
+	 * åŠŸèƒ½:å…³é—­æ•°æ®åº“çš„è¿æ¥
 	 */
 	public void close() {
 		try {

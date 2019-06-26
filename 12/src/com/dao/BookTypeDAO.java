@@ -7,7 +7,7 @@ import com.actionForm.BookTypeForm;
 
 public class BookTypeDAO {
     private ConnDB conn=new ConnDB();
-//²éÑ¯Êı¾İ
+//æŸ¥è¯¢æ•°æ®
 public Collection query(String strif){
     BookTypeForm bookTypeForm=null;
     Collection bookTypeColl=new ArrayList();
@@ -32,11 +32,11 @@ public Collection query(String strif){
     conn.close();
     return bookTypeColl;
 }
-//ÓÃÓÚĞŞ¸ÄµÄ²éÑ¯
+//ç”¨äºä¿®æ”¹çš„æŸ¥è¯¢
 public BookTypeForm queryM(BookTypeForm bookTypeForm){
     BookTypeForm bookTypeForm1=null;
     String sql="select * from tb_bookType where id="+bookTypeForm.getId()+"";
-    System.out.println("ĞŞ¸ÄÊ±µÄSQL£º"+sql);
+    System.out.println("ä¿®æ”¹æ—¶çš„SQLï¼š"+sql);
     ResultSet rs=conn.executeQuery(sql);
     try {
         while (rs.next()) {
@@ -50,7 +50,7 @@ public BookTypeForm queryM(BookTypeForm bookTypeForm){
     conn.close();
     return bookTypeForm1;
 }
-//Ìí¼ÓÊı¾İ
+//æ·»åŠ æ•°æ®
 public int insert(BookTypeForm bookTypeForm){
 String sql1="SELECT * FROM tb_bookType WHERE typename='"+bookTypeForm.getTypeName()+"'";
 ResultSet rs = conn.executeQuery(sql1);
@@ -62,7 +62,7 @@ try {
     } else {
         sql ="Insert into tb_bookType (typename,days) values('"+bookTypeForm.getTypeName()+"',"+bookTypeForm.getDays()+")";
         falg = conn.executeUpdate(sql);
-        System.out.println("Ìí¼ÓÍ¼ÊéÀàĞÍµÄSQL£º" + sql);
+        System.out.println("æ·»åŠ å›¾ä¹¦ç±»å‹çš„SQLï¼š" + sql);
         conn.close();
     }
 } catch (SQLException ex) {
@@ -72,15 +72,15 @@ System.out.println("falg:"+falg);
 return falg;
 }
 
-//ĞŞ¸ÄÊı¾İ
+//ä¿®æ”¹æ•°æ®
 public int update(BookTypeForm bookTypeForm){
 String sql="Update tb_bookType set typename='"+bookTypeForm.getTypeName()+"',days="+bookTypeForm.getDays()+" where id="+bookTypeForm.getId()+"";
 int falg=conn.executeUpdate(sql);
-System.out.println("ĞŞ¸ÄÊı¾İÊ±µÄSQL£º"+sql);
+System.out.println("ä¿®æ”¹æ•°æ®æ—¶çš„SQLï¼š"+sql);
 conn.close();
 return falg;
 }
-//É¾³ıÊı¾İ
+//åˆ é™¤æ•°æ®
 public int delete(BookTypeForm bookTypeForm){
 	String sql_1="SELECT * FROM tb_bookinfo WHERE typeid="+bookTypeForm.getId()+"";
 	ResultSet rs=conn.executeQuery(sql_1);
@@ -89,7 +89,7 @@ public int delete(BookTypeForm bookTypeForm){
 		if(!rs.next()){
 			String sql="Delete from tb_bookType where id="+bookTypeForm.getId()+"";
 			falg=conn.executeUpdate(sql);
-			System.out.println("É¾³ıÊ±µÄSQL£º"+sql);
+			System.out.println("åˆ é™¤æ—¶çš„SQLï¼š"+sql);
 		}
 	} catch (Exception e) {
 		e.printStackTrace();

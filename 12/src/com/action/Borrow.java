@@ -10,7 +10,7 @@ import com.dao.*;
 import com.actionForm.*;
 
 public class Borrow extends HttpServlet {
-	/******************ÔÚ¹¹Ôì·½·¨ÖĞÊµÀı»¯BorrowÀàÖĞÓ¦ÓÃµÄ³Ö¾Ã²ãÀàµÄ¶ÔÏó**************************/
+	/******************åœ¨æ„é€ æ–¹æ³•ä¸­å®ä¾‹åŒ–Borrowç±»ä¸­åº”ç”¨çš„æŒä¹…å±‚ç±»çš„å¯¹è±¡**************************/
 	   private BorrowDAO borrowDAO = null;
 	   private ReaderDAO readerDAO=null;
 	   private BookDAO bookDAO=null;
@@ -25,29 +25,29 @@ public class Borrow extends HttpServlet {
 		throws ServletException, IOException {
 	        String action =request.getParameter("action");
 	        if(action==null||"".equals(action)){
-	            request.setAttribute("error","ÄúµÄ²Ù×÷ÓĞÎó£¡");
+	            request.setAttribute("error","æ‚¨çš„æ“ä½œæœ‰è¯¯ï¼");
 	            request.getRequestDispatcher("error.jsp").forward(request, response);
 	        }else if("bookBorrowSort".equals(action)){
 	            bookBorrowSort(request,response); 
 	        }else if("bookborrow".equals(action)){
-	            bookborrow(request,response);  //Í¼Êé½èÔÄ
+	            bookborrow(request,response);  //å›¾ä¹¦å€Ÿé˜…
 	        }else if("bookrenew".equals(action)){
-	            bookrenew(request,response);  //Í¼ÊéĞø½è
+	            bookrenew(request,response);  //å›¾ä¹¦ç»­å€Ÿ
 	        }else if("bookback".equals(action)){
-	            bookback(request,response);  //Í¼Êé¹é»¹
+	            bookback(request,response);  //å›¾ä¹¦å½’è¿˜
 	        }else if("Bremind".equals(action)){
-	            bremind(request,response);  //½èÔÄµ½ÆÚÌáĞÑ
+	            bremind(request,response);  //å€Ÿé˜…åˆ°æœŸæé†’
 	        }else if("borrowQuery".equals(action)){
-	            borrowQuery(request,response);  //½èÔÄĞÅÏ¢²éÑ¯
+	            borrowQuery(request,response);  //å€Ÿé˜…ä¿¡æ¯æŸ¥è¯¢
 	        }
 	    }
-    /*********************Í¼Êé½èÔÄÅÅĞĞ***********************/
+    /*********************å›¾ä¹¦å€Ÿé˜…æ’è¡Œ***********************/
     private void bookBorrowSort(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
         request.setAttribute("bookBorrowSort",borrowDAO.bookBorrowSort());
         request.getRequestDispatcher("bookBorrowSort.jsp").forward(request, response);
     }
- /*********************Í¼Êé½èÔÄ²éÑ¯***********************/
+ /*********************å›¾ä¹¦å€Ÿé˜…æŸ¥è¯¢***********************/
     private void borrowQuery(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
         String str=null;
@@ -67,15 +67,15 @@ public class Borrow extends HttpServlet {
                     str = "borrowTime between '" + sdate + "' and '" + edate +
                           "'";
                 }
-                System.out.println("ÈÕÆÚ" + str);
+                System.out.println("æ—¥æœŸ" + str);
             }
-            //Í¬Ê±Ñ¡ÔñÈÕÆÚºÍÌõ¼ş½øĞĞ²éÑ¯
+            //åŒæ—¶é€‰æ‹©æ—¥æœŸå’Œæ¡ä»¶è¿›è¡ŒæŸ¥è¯¢
             if (flag.length == 2) {
                 if (request.getParameter("f") != null) {
                     str = request.getParameter("f") + " like '%" +
                           request.getParameter("key") + "%'";
                 }
-                System.out.println("ÈÕÆÚºÍÌõ¼ş");
+                System.out.println("æ—¥æœŸå’Œæ¡ä»¶");
                 String sdate = request.getParameter("sdate");
                 String edate = request.getParameter("edate");
                 String str1 = null;
@@ -84,30 +84,30 @@ public class Borrow extends HttpServlet {
                            "'";
                 }
                 str = str + " and borr." + str1;
-                System.out.println("Ìõ¼şºÍÈÕÆÚ£º" + str);
+                System.out.println("æ¡ä»¶å’Œæ—¥æœŸï¼š" + str);
             }
         }
         request.setAttribute("borrowQuery",borrowDAO.borrowQuery(str));
-       System.out.print("Ìõ¼ş²éÑ¯Í¼Êé½èÔÄĞÅÏ¢Ê±µÄstr:"+str);
+       System.out.print("æ¡ä»¶æŸ¥è¯¢å›¾ä¹¦å€Ÿé˜…ä¿¡æ¯æ—¶çš„str:"+str);
        request.getRequestDispatcher("borrowQuery.jsp").forward(request, response);
     }
-    /*********************µ½ÆÚÌáĞÑ***********************/
+    /*********************åˆ°æœŸæé†’***********************/
     private void bremind(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
         request.setAttribute("Bremind",borrowDAO.bremind());
         request.getRequestDispatcher("bremind.jsp").forward(request, response);
     }
 
-    /*********************Í¼Êé½èÔÄ***********************/
+    /*********************å›¾ä¹¦å€Ÿé˜…***********************/
     private void bookborrow(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
-        //²éÑ¯¶ÁÕßĞÅÏ¢
+        //æŸ¥è¯¢è¯»è€…ä¿¡æ¯
         readerForm.setBarcode(request.getParameter("barcode"));
         ReaderForm reader = (ReaderForm) readerDAO.queryM(readerForm);
         request.setAttribute("readerinfo", reader);
-        //²éÑ¯¶ÁÕßµÄ½èÔÄĞÅÏ¢
+        //æŸ¥è¯¢è¯»è€…çš„å€Ÿé˜…ä¿¡æ¯
         request.setAttribute("borrowinfo",borrowDAO.borrowinfo(request.getParameter("barcode")));
-        //Íê³É½èÔÄ
+        //å®Œæˆå€Ÿé˜…
         String f = request.getParameter("f");
         String key = request.getParameter("inputkey");
         if (key != null && !key.equals("")) {
@@ -121,32 +121,32 @@ public class Borrow extends HttpServlet {
                     request.getRequestDispatcher("bookBorrow_ok.jsp").forward(request, response);
 
                 } else {
-                    request.setAttribute("error", "Ìí¼Ó½èÔÄĞÅÏ¢Ê§°Ü!");
+                    request.setAttribute("error", "æ·»åŠ å€Ÿé˜…ä¿¡æ¯å¤±è´¥!");
                     request.getRequestDispatcher("error.jsp").forward(request, response);
                 }
             }else{
-                request.setAttribute("error", "Ã»ÓĞ¸ÃÍ¼Êé!");
+                request.setAttribute("error", "æ²¡æœ‰è¯¥å›¾ä¹¦!");
                 request.getRequestDispatcher("error.jsp").forward(request, response);
             }
         }else{
         	request.getRequestDispatcher("bookBorrow.jsp").forward(request, response);
         }
     }
-    /*********************Í¼Êé¼Ì½è***********************/
+    /*********************å›¾ä¹¦ç»§å€Ÿ***********************/
     private void bookrenew(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
-        //²éÑ¯¶ÁÕßĞÅÏ¢
+        //æŸ¥è¯¢è¯»è€…ä¿¡æ¯
         readerForm.setBarcode(request.getParameter("barcode"));
         ReaderForm reader = (ReaderForm) readerDAO.queryM(readerForm);
         request.setAttribute("readerinfo", reader);
-        //²éÑ¯¶ÁÕßµÄ½èÔÄĞÅÏ¢
+        //æŸ¥è¯¢è¯»è€…çš„å€Ÿé˜…ä¿¡æ¯
         request.setAttribute("borrowinfo",borrowDAO.borrowinfo(request.getParameter("barcode")));
          if(request.getParameter("id")!=null){
              int id = Integer.parseInt(request.getParameter("id"));
-             if (id > 0) { //Ö´ĞĞ¼Ì½è²Ù×÷
+             if (id > 0) { //æ‰§è¡Œç»§å€Ÿæ“ä½œ
                  int ret = borrowDAO.renew(id);
                  if (ret == 0) {
-                     request.setAttribute("error", "Í¼Êé¼Ì½èÊ§°Ü!");
+                     request.setAttribute("error", "å›¾ä¹¦ç»§å€Ÿå¤±è´¥!");
                      request.getRequestDispatcher("error.jsp").forward(request, response);
                  } else {
                      request.setAttribute("bar", request.getParameter("barcode"));
@@ -157,22 +157,22 @@ public class Borrow extends HttpServlet {
         	 request.getRequestDispatcher("bookRenew.jsp").forward(request, response);
          }
     }
-    /*********************Í¼Êé¹é»¹***********************/
+    /*********************å›¾ä¹¦å½’è¿˜***********************/
     private void bookback(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
-        //²éÑ¯¶ÁÕßĞÅÏ¢
+        //æŸ¥è¯¢è¯»è€…ä¿¡æ¯
         readerForm.setBarcode(request.getParameter("barcode"));
         ReaderForm reader = (ReaderForm) readerDAO.queryM(readerForm);
         request.setAttribute("readerinfo", reader);
-        //²éÑ¯¶ÁÕßµÄ½èÔÄĞÅÏ¢
+        //æŸ¥è¯¢è¯»è€…çš„å€Ÿé˜…ä¿¡æ¯
         request.setAttribute("borrowinfo",borrowDAO.borrowinfo(request.getParameter("barcode")));
          if(request.getParameter("id")!=null){
              int id = Integer.parseInt(request.getParameter("id"));
              String operator=request.getParameter("operator");
-             if (id > 0) { //Ö´ĞĞ¹é»¹²Ù×÷
+             if (id > 0) { //æ‰§è¡Œå½’è¿˜æ“ä½œ
                  int ret = borrowDAO.back(id,operator);
                  if (ret == 0) {
-                     request.setAttribute("error", "Í¼Êé¹é»¹Ê§°Ü!");
+                     request.setAttribute("error", "å›¾ä¹¦å½’è¿˜å¤±è´¥!");
                      request.getRequestDispatcher("error.jsp").forward(request, response);
                  } else {
                      request.setAttribute("bar", request.getParameter("barcode"));

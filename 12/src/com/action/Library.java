@@ -48,7 +48,7 @@ public class Library extends HttpServlet {
         libraryForm.setIntroduce(request.getParameter("introduce"));        
         int ret = libraryDAO.update(libraryForm);
         if (ret ==0) {
-            request.setAttribute("error", "Í¼Êé¹İĞÅÏ¢ĞŞ¸ÄÊ§°Ü£¡");
+            request.setAttribute("error", "å›¾ä¹¦é¦†ä¿¡æ¯ä¿®æ”¹å¤±è´¥ï¼");
             request.getRequestDispatcher("error.jsp").forward(request, response);
         } else {
         	request.getRequestDispatcher("library_ok.jsp?para=2").forward(request, response);

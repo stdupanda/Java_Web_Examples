@@ -22,7 +22,7 @@ public class Reader extends HttpServlet {
 		String action = request.getParameter("action");
 		System.out.println("\nreader*********************action=" + action);
 		if (action == null || "".equals(action)) {
-			request.setAttribute("error", "ÄúµÄ²Ù×÷ÓĞÎó£¡");
+			request.setAttribute("error", "æ‚¨çš„æ“ä½œæœ‰è¯¯ï¼");
 			request.getRequestDispatcher("error.jsp")
 					.forward(request, response);
 		} else if ("readerAdd".equals(action)) {
@@ -40,7 +40,7 @@ public class Reader extends HttpServlet {
 		}
 	}
 
-	/*********************** Ìí¼Ó¶ÁÕßĞÅÏ¢ **************************/
+	/*********************** æ·»åŠ è¯»è€…ä¿¡æ¯ **************************/
 	private void readerAdd(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		ReaderForm readerForm = new ReaderForm();
@@ -53,7 +53,7 @@ public class Reader extends HttpServlet {
 		readerForm.setPaperNO(request.getParameter("paperNO"));
 		readerForm.setTel(request.getParameter("tel"));
 		readerForm.setEmail(request.getParameter("email"));
-		// »ñÈ¡ÏµÍ³ÈÕÆÚ
+		// è·å–ç³»ç»Ÿæ—¥æœŸ
 		Date date1 = new Date();
 		java.sql.Date date = new java.sql.Date(date1.getTime());
 		readerForm.setCreateDate(date.toString());
@@ -62,11 +62,11 @@ public class Reader extends HttpServlet {
 		readerForm.setTypeid(Integer.parseInt(request.getParameter("typeid")));
 		int a = readerDAO.insert(readerForm);
 		if (a == 0) {
-			request.setAttribute("error", "¶ÁÕßĞÅÏ¢Ìí¼ÓÊ§°Ü£¡");
+			request.setAttribute("error", "è¯»è€…ä¿¡æ¯æ·»åŠ å¤±è´¥ï¼");
 			request.getRequestDispatcher("error.jsp")
 					.forward(request, response);
 		} else if (a == 2) {
-			request.setAttribute("error", "¸Ã¶ÁÕßĞÅÏ¢ÒÑ¾­Ìí¼Ó£¡");
+			request.setAttribute("error", "è¯¥è¯»è€…ä¿¡æ¯å·²ç»æ·»åŠ ï¼");
 			request.getRequestDispatcher("error.jsp")
 					.forward(request, response);
 		} else {
@@ -75,7 +75,7 @@ public class Reader extends HttpServlet {
 		}
 	}
 
-	/*********************** ²éÑ¯È«²¿¶ÁÕßĞÅÏ¢ **************************/
+	/*********************** æŸ¥è¯¢å…¨éƒ¨è¯»è€…ä¿¡æ¯ **************************/
 	private void readerQuery(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String str = null;
@@ -83,18 +83,18 @@ public class Reader extends HttpServlet {
 		request.getRequestDispatcher("reader.jsp").forward(request, response);
 	}
 
-	/*********************** ²éÑ¯ĞŞ¸Ä¶ÁÕßĞÅÏ¢ **************************/
+	/*********************** æŸ¥è¯¢ä¿®æ”¹è¯»è€…ä¿¡æ¯ **************************/
 	private void readerModifyQuery(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		ReaderForm readerForm = new ReaderForm();
-		System.out.println("²éÑ¯ĞŞ¸Ä¶ÁÕßĞÅÏ¢£º" + request.getParameter("ID"));
+		System.out.println("æŸ¥è¯¢ä¿®æ”¹è¯»è€…ä¿¡æ¯ï¼š" + request.getParameter("ID"));
 		readerForm.setId(Integer.valueOf(request.getParameter("ID")));
 		request.setAttribute("readerQueryif", readerDAO.queryM(readerForm));
 		request.getRequestDispatcher("reader_Modify.jsp").forward(request,
 				response);
 	}
 
-	/*********************** ²éÑ¯¶ÁÕßÏêÏ¸ĞÅÏ¢ **************************/
+	/*********************** æŸ¥è¯¢è¯»è€…è¯¦ç»†ä¿¡æ¯ **************************/
 	private void readerDetail(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		ReaderForm readerForm = new ReaderForm();
@@ -104,7 +104,7 @@ public class Reader extends HttpServlet {
 				response);
 	}
 
-	/*********************** ĞŞ¸Ä¶ÁÕßĞÅÏ¢ **************************/
+	/*********************** ä¿®æ”¹è¯»è€…ä¿¡æ¯ **************************/
 	private void readerModify(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		ReaderForm readerForm = new ReaderForm();
@@ -123,7 +123,7 @@ public class Reader extends HttpServlet {
 		readerForm.setTypeid(Integer.parseInt(request.getParameter("typeid")));
 		int ret = readerDAO.update(readerForm);
 		if (ret == 0) {
-			request.setAttribute("error", "ĞŞ¸Ä¶ÁÕßĞÅÏ¢Ê§°Ü£¡");
+			request.setAttribute("error", "ä¿®æ”¹è¯»è€…ä¿¡æ¯å¤±è´¥ï¼");
 			request.getRequestDispatcher("error.jsp")
 					.forward(request, response);
 		} else {
@@ -132,14 +132,14 @@ public class Reader extends HttpServlet {
 		}
 	}
 
-	/*********************** É¾³ı¶ÁÕßĞÅÏ¢ **************************/
+	/*********************** åˆ é™¤è¯»è€…ä¿¡æ¯ **************************/
 	private void readerDel(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		ReaderForm readerForm = new ReaderForm();
 		readerForm.setId(Integer.valueOf(request.getParameter("ID")));
 		int ret = readerDAO.delete(readerForm);
 		if (ret == 0) {
-			request.setAttribute("error", "É¾³ı¶ÁÕßĞÅÏ¢Ê§°Ü£¡");
+			request.setAttribute("error", "åˆ é™¤è¯»è€…ä¿¡æ¯å¤±è´¥ï¼");
 			request.getRequestDispatcher("error.jsp")
 					.forward(request, response);
 		} else {
